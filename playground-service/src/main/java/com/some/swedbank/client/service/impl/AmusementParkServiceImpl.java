@@ -5,13 +5,18 @@ import org.springframework.stereotype.Service;
 
 import com.some.swedbank.client.service.AmusementParkService;
 import com.some.swedbank.client.service.entity.park.AmusementPark;
+import com.some.swedbank.client.service.entity.playsite.PlaySite;
 import com.some.swedbank.client.service.mapper.AmusementParkDomainMapperWithDao;
+import com.some.swedbank.client.service.mapper.PlaySiteDomainMapperWithDao;
 
 @Service("amusementParkService")
 public class AmusementParkServiceImpl implements AmusementParkService {
 
 	@Autowired
 	private AmusementParkDomainMapperWithDao amusementParkMapper;
+	
+	@Autowired
+	private PlaySiteDomainMapperWithDao playSiteMapper;
 	
 	@Override
 	public AmusementPark loadById(Long id) {
@@ -20,18 +25,18 @@ public class AmusementParkServiceImpl implements AmusementParkService {
 
 	@Override
 	public Long addNewPlaySite(Long parkId, Long playSiteId) {
-		// TODO Auto-generated method stub
-		return null;
+		 PlaySite playSite = playSiteMapper.loadPlaySite(playSiteId);
+		 return amusementParkMapper.addNewPlaySite(parkId, playSite);
 	}
 
 	@Override
 	public void deletePlaySite(Long parkId, Long playSiteId) {
-		// TODO Auto-generated method stub
+		amusementParkMapper.deletePlaySite(parkId, playSiteId);
 	}
 
 	@Override
 	public void deleteAmusementPark(Long parkId) {
-		// TODO Auto-generated method stub
+		amusementParkMapper.deleteAmusementPark(parkId);
 	}
 
 }

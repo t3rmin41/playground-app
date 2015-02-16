@@ -1,9 +1,11 @@
 package com.some.swedbank.client.service.entity.park;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.some.swedbank.client.service.entity.DomainEntity;
+import com.some.swedbank.client.service.entity.person.Kid;
 import com.some.swedbank.client.service.entity.playsite.PlaySite;
 
 public class AmusementPark extends DomainEntity {
@@ -27,6 +29,18 @@ public class AmusementPark extends DomainEntity {
 
 	public void setPlaySites(List<PlaySite> playSites) {
 		this.playSites = playSites;
+	}
+	
+	public void addNewPlaySite(PlaySite playSite) {
+		this.playSites.add(playSite);
+	}
+	
+	public void removePlaySite(PlaySite playSite) {
+		for (Iterator<PlaySite> playSiteIter = playSites.listIterator(); playSiteIter.hasNext();) {
+			if (playSiteIter.next().getId().equals(playSite.getId()) ) {
+				playSiteIter.remove();
+			}
+		}
 	}
 
 	public Long getVisitorsTotal() {

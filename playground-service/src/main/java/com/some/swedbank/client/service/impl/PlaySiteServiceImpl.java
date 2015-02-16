@@ -17,32 +17,27 @@ public class PlaySiteServiceImpl implements PlaySiteService {
 	
 	@Override
 	public Long addNewPlaySite(PlaySite playSite) {
-		// TODO Auto-generated method stub
-		return null;
+		return playSiteMapper.addNewPlaySite(playSite);
 	}
 
 	@Override
 	public PlaySite loadPlaySite(Long playSiteId) {
-		// TODO Auto-generated method stub
-		return null;
+		return playSiteMapper.loadPlaySite(playSiteId);
 	}
 
 	@Override
 	public void deletePlaySite(PlaySite playSite) {
-		// TODO Auto-generated method stub
-		
+		playSiteMapper.deletePlaySite(playSite);
 	}
 
 	@Override
 	public void deletePlaySiteById(Long playSiteId) {
-		// TODO Auto-generated method stub
-		
+		playSiteMapper.deletePlaySiteById(playSiteId);
 	}
 
 	@Override
 	public PlaySite editPlaySite(PlaySite playSite) {
-		// TODO Auto-generated method stub
-		return null;
+		return playSiteMapper.editPlaySite(playSite);
 	}
 
 	@Override

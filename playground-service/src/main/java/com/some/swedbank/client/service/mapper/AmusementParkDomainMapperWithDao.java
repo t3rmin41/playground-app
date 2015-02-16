@@ -11,6 +11,7 @@ import com.some.swedbank.client.dao.entity.PlaySiteDao;
 import com.some.swedbank.client.dao.repository.AmusementParkRepository;
 import com.some.swedbank.client.service.entity.DomainEntity;
 import com.some.swedbank.client.service.entity.park.AmusementPark;
+import com.some.swedbank.client.service.entity.playsite.PlaySite;
 
 @Service("amusementParkMapper")
 public class AmusementParkDomainMapperWithDao implements DomainMapperWithDao {
@@ -26,6 +27,14 @@ public class AmusementParkDomainMapperWithDao implements DomainMapperWithDao {
 		return null;
 	}
 	
+	private PlaySiteDao createPlaySiteDaoFromDomain(PlaySite playSite) {
+		return new PlaySiteDao(	
+	  			   playSite.getId(),
+	  			   playSite.getMaximumKids(),
+	  			   playSite.getDescription()
+	  			  );
+	}
+	
 	public AmusementPark getAmusementPark(Long id) {
 		AmusementParkDao amusementParkDao = amusementParkRepository.loadAmusementPark(id);
 		List<PlaySiteDao> playSiteDaoList = amusementParkRepository.loadAmusementParkPlaySites(id);
@@ -33,6 +42,18 @@ public class AmusementParkDomainMapperWithDao implements DomainMapperWithDao {
 								 amusementParkDao.getId(),
 								 playSiteMapper.getPlaySiteList(playSiteDaoList)
 								);
+	}
+	
+	public Long addNewPlaySite(Long id, PlaySite playSite) {
+		return amusementParkRepository.addNewPlaySite(id, createPlaySiteDaoFromDomain(playSite));
+	}
+	
+	public void deletePlaySite(Long parkId, Long playSiteId) {
+		amusementParkRepository.deletePlaySite(parkId, playSiteId);
+	}
+	
+	public void deleteAmusementPark(Long id) {
+		amusementParkRepository.deleteAmusementPark(id);
 	}
 
 }

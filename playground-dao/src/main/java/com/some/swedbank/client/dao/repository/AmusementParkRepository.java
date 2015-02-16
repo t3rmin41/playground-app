@@ -31,4 +31,16 @@ public class AmusementParkRepository {
 		}
 		return playsites;
 	}
+	
+	public Long addNewPlaySite(Long id, PlaySiteDao playSiteDao) {
+		return playSiteDao.getId()+1L;
+	}
+	
+	public void deletePlaySite(Long parkId, Long playSiteId) {
+		
+	}
+	
+	public void deleteAmusementPark(Long parkId) {
+		
+	}
 }
