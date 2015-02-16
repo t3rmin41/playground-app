@@ -6,19 +6,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>List of playsites</title>
+<title>List of kids</title>
 </head>
 <body>
 	<table border="1">
 	<thead>
-		<th>Description</th>
-		<th>Capacity</th>
+		<th>Name</th>
+		<th>Age</th>
+		<th>Ticket number</th>
+		<th>Playsites visited</th>
 	</thead>
 	<tbody>
-		<c:forEach items="${playsites}" var="playsite">
+		<c:forEach items="${kids}" var="kid">
 			<tr>
-				<td>${playsite.getDescription()}</td>
-				<td>${playsite.getMaximumKids()}</td>
+				<td>${kid.name}</td>
+				<td>${kid.age}</td>
+				<td>${kid.ticketNumber}</td>
+				<td>
+					<c:forEach items="${kid.getPlaySiteList()}" var="playSiteSummary">
+						${playSiteSummary.toString()} <br />
+					</c:forEach>
+				</td>
 			</tr>
 		</c:forEach>
 	</tbody>
