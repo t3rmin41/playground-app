@@ -25,6 +25,6 @@ public class PlaySiteController {
 	private String preparePlaySitekListForReview(Model model) {
 		List<PlaySite> playsites = playSiteService.getAllPlaySites(); 
 		model.addAttribute("playsites", playsites);
-		return "park/list";
+		return "playsite/list";
 	}
 }
