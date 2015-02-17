@@ -11,7 +11,7 @@ import com.some.swedbank.client.service.entity.playsite.PlaySite;
 public class AmusementPark extends DomainEntity {
 
 	private List<PlaySite> playSites;
-	private Long visitorsTotal;
+	private Long visitorsTotal = 0L;
 	
 	public AmusementPark(Long id) {
 		super(id);
