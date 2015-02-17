@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.some.swedbank.client.service.entity.DomainEntity;
 import com.some.swedbank.client.service.entity.person.Kid;
+import com.some.swedbank.client.service.entity.person.KidSummary;
 import com.some.swedbank.client.service.exception.PlaySiteIsEmptyException;
 import com.some.swedbank.client.service.exception.WaitingIsNotAcceptedException;
 import com.some.swedbank.client.service.exception.WaitingListIsEmptyException;
@@ -20,6 +21,7 @@ public abstract class PlaySite extends DomainEntity {
 	private List<Kid> kidsCurrentlyUsing;
 	private List<Kid> waitingKids;
 	private List<Kid> lastKids;
+	private List<KidSummary> usageHistory;
 
 	private Date dateStarted;
 	private Date dateFinished;
@@ -29,6 +31,8 @@ public abstract class PlaySite extends DomainEntity {
 		super(id);
 		kidsCurrentlyUsing = new ArrayList<Kid>();
 		waitingKids = new ArrayList<Kid>();
+		lastKids = new ArrayList<Kid>();
+		usageHistory = new ArrayList<KidSummary>();
 	}
 	
 	public PlaySite(Long id, Long maximumKids) {
@@ -89,6 +93,14 @@ public abstract class PlaySite extends DomainEntity {
 	public void setLastKids(List<Kid> lastKids) {
 		this.lastKids = lastKids;
 	}
+	public List<KidSummary> getUsageHistory() {
+		return usageHistory;
+	}
+
+	public void setUsageHistory(List<KidSummary> usageHistory) {
+		this.usageHistory = usageHistory;
+	}
+
 	public Date getDateStarted() {
 		return dateStarted;
 	}
@@ -135,11 +147,12 @@ public abstract class PlaySite extends DomainEntity {
 		if (!kidsCurrentlyUsing.isEmpty()) {
 			for (Iterator<Kid> kidIter = kidsCurrentlyUsing.listIterator(); kidIter.hasNext();) {
 				if (kidIter.next().getId().equals(kid.getId()) ) {
-					// Performing accounting
+					// Perform accounting
 					this.dateFinished = new Date();
 					this.secondsTotal = this.getDateFinished().getTime() - this.getDateFinished().getTime();
 					kid.addPlaySiteSummary(new PlaySiteSummary(this.getId(), this.getSecondsTotal(), this.getDescription()));
 					addKidToHistory(kid);
+					addHistoryUsage(kid, secondsTotal);
 					
 					kidIter.remove();
 				}
@@ -151,7 +164,7 @@ public abstract class PlaySite extends DomainEntity {
 	
 	public void addWaitingKidToPlaySite(Kid kid) throws WaitingIsNotAcceptedException {
 		if (kid.isWaitingAccepted()) {
-			synchronized(waitingKids) {
+			synchronized (waitingKids) {
 				waitingKids.add(kid);
 			}
 		} else {
@@ -178,6 +191,21 @@ public abstract class PlaySite extends DomainEntity {
 			if (lastKids.size() > lastKidsUsed) {
 				lastKids.remove(0);
 			} 
+		}
+	}
+	
+	public void addHistoryUsage(Kid kid, Long secondsTotal) {
+		KidSummary kidSummary = new KidSummary();
+		kidSummary.setKidId(kid.getId());
+		kidSummary.setName(kid.getName());
+		kidSummary.setAge(kid.getAge());
+		kidSummary.setSeconds(secondsTotal);
+		
+		synchronized (usageHistory) {
+			usageHistory.add(kidSummary);
+			if (usageHistory.size() > lastKidsUsed) {
+				usageHistory.remove(0);
+			}
 		}
 	}
 	
