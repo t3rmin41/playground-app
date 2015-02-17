@@ -1,5 +1,6 @@
 package com.some.swedbank.client.dao.entity;
 
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -22,6 +23,20 @@ public class AmusementParkDao extends DaoEntity {
 
 	public void setPlaySitesDao(List<PlaySiteDao> playSitesDao) {
 		this.playSitesDao = playSitesDao;
+	}
+	
+	public void deletePlaySiteDao(PlaySiteDao playSiteDao) {
+		if (this.playSitesDao.contains(playSiteDao)) {
+			this.playSitesDao.remove(playSiteDao);
+		}
+	}
+	
+	public void deletePlaySiteDaoById(Long playSiteId) {
+		for (Iterator<PlaySiteDao> daoIter = playSitesDao.listIterator(); daoIter.hasNext(); ) {
+			if (daoIter.next().getId().equals(playSiteId)) {
+				daoIter.remove();
+			}
+		}
 	}
 	
 }

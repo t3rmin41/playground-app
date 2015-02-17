@@ -1,5 +1,7 @@
 package com.some.swedbank.client.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,11 @@ public class AmusementParkServiceImpl implements AmusementParkService {
 	@Override
 	public void deleteAmusementPark(Long parkId) {
 		amusementParkMapper.deleteAmusementPark(parkId);
+	}
+
+	@Override
+	public List<AmusementPark> getAllAmusementParks() {
+		return amusementParkMapper.getAllAmusementParks();
 	}
 
 }

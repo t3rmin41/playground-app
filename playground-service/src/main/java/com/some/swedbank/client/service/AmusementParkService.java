@@ -1,5 +1,7 @@
 package com.some.swedbank.client.service;
 
+import java.util.List;
+
 import com.some.swedbank.client.service.entity.park.AmusementPark;
 
 public interface AmusementParkService {
@@ -11,4 +13,6 @@ public interface AmusementParkService {
 	void deletePlaySite(Long parkId, Long playSiteId);
 	
 	void deleteAmusementPark(Long parkId);
+	
+	List<AmusementPark> getAllAmusementParks();
 }

@@ -51,4 +51,9 @@ public class AmusementPark extends DomainEntity {
 		this.visitorsTotal = visitorsTotal;
 	}
 	 
+	public void addKidToPlaySite(PlaySite playSite, Kid kid) {
+		if (this.playSites.contains(playSite) && playSite.addKidToPlaySite(kid)) {
+			visitorsTotal++;
+		}
+	}
 }

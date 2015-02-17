@@ -1,5 +1,6 @@
 package com.some.swedbank.client.service.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,16 @@ public class AmusementParkDomainMapperWithDao implements DomainMapperWithDao {
 	
 	public void deleteAmusementPark(Long id) {
 		amusementParkRepository.deleteAmusementPark(id);
+	}
+	
+	public List<AmusementPark> getAllAmusementParks() {
+		List<AmusementPark> listDomain = new ArrayList<AmusementPark>();
+		List<AmusementParkDao> listDao = new ArrayList<AmusementParkDao>();
+		listDao = amusementParkRepository.getAllAmusementParks();
+		for (AmusementParkDao dao : listDao) {
+			listDomain.add(getAmusementPark(dao.getId()));
+		}
+		return listDomain;
 	}
 
 }

@@ -15,9 +15,11 @@ public abstract class PlaySite extends DomainEntity {
 
 	private Long maximumKids;
 	private String description;
+	private Long lastKidsUsed = 5L;
 	
 	private List<Kid> kidsCurrentlyUsing;
 	private List<Kid> waitingKids;
+	private List<Kid> lastKids;
 
 	private Date dateStarted;
 	private Date dateFinished;
@@ -56,6 +58,14 @@ public abstract class PlaySite extends DomainEntity {
 		this.description = description;
 	}
 
+	public Long getLastKidsUsed() {
+		return lastKidsUsed;
+	}
+
+	public void setLastKidsUsed(Long lastKidUsed) {
+		this.lastKidsUsed = lastKidUsed;
+	}
+
 	public List<Kid> getKidsCurrentlyUsing() {
 		return kidsCurrentlyUsing;
 	}
@@ -72,56 +82,13 @@ public abstract class PlaySite extends DomainEntity {
 		this.waitingKids = waitingKids;
 	}
 	
-	public void addKidToPlaySite(Kid kid) {
-		if (kidsCurrentlyUsing.size() < maximumKids) {
-			kidsCurrentlyUsing.add(kid);
-			this.dateStarted = new Date();
-		} else {
-			try {
-				addWaitingKidToPlaySite(kid);
-			} catch (WaitingIsNotAcceptedException e) {
-				e.printStackTrace();
-			}
-		}
+	public List<Kid> getLastKids() {
+		return lastKids;
 	}
-	
-	public void removeKidFromPlaySite(Kid kid) throws PlaySiteIsEmptyException {
-		if (!kidsCurrentlyUsing.isEmpty()) {
-			for (Iterator<Kid> kidIter = kidsCurrentlyUsing.listIterator(); kidIter.hasNext();) {
-				if (kidIter.next().getId().equals(kid.getId()) ) {
-					this.dateFinished = new Date();
-					this.secondsTotal = this.getDateFinished().getTime() - this.getDateFinished().getTime();
-					kid.addPlaySiteSummary(new PlaySiteSummary(this.getId(), this.getSecondsTotal(), this.getDescription()));
-					
-					kidIter.remove();
-				}
-			}
-		} else {
-			throw new PlaySiteIsEmptyException();
-		}
+
+	public void setLastKids(List<Kid> lastKids) {
+		this.lastKids = lastKids;
 	}
-	
-	public void addWaitingKidToPlaySite(Kid kid) throws WaitingIsNotAcceptedException {
-		if (kid.isWaitingAccepted()) {
-			waitingKids.add(kid);
-		} else {
-			throw new WaitingIsNotAcceptedException();
-		}
-	}
-	
-	public void removeWaitingKidFromPlaySite(Kid kid) throws WaitingListIsEmptyException {
-		if (!waitingKids.isEmpty()) {
-			for (Iterator<Kid> kidIter = waitingKids.listIterator(); kidIter.hasNext();) {
-				if (kidIter.next().getId().equals(kid.getId()) ) {
-					kidIter.remove();
-				}
-			}
-		} else {
-			throw new WaitingListIsEmptyException();
-		}
-		
-	}
-	
 	public Date getDateStarted() {
 		return dateStarted;
 	}
@@ -145,6 +112,73 @@ public abstract class PlaySite extends DomainEntity {
 	public void setSecondsTotal(Long secondsTotal) {
 		this.secondsTotal = secondsTotal;
 	}
+
+	public boolean addKidToPlaySite(Kid kid) {
+		boolean addedSuccessfully = false;
+		synchronized (kidsCurrentlyUsing) {
+			if (kidsCurrentlyUsing.size() < maximumKids) {
+				kidsCurrentlyUsing.add(kid);
+				this.dateStarted = new Date();
+				addedSuccessfully = true;
+			} else {
+				try {
+					addWaitingKidToPlaySite(kid);
+				} catch (WaitingIsNotAcceptedException e) {
+					e.printStackTrace();
+				} 
+			}
+		}
+		return addedSuccessfully;
+	}
+	
+	public void removeKidFromPlaySite(Kid kid) throws PlaySiteIsEmptyException {
+		if (!kidsCurrentlyUsing.isEmpty()) {
+			for (Iterator<Kid> kidIter = kidsCurrentlyUsing.listIterator(); kidIter.hasNext();) {
+				if (kidIter.next().getId().equals(kid.getId()) ) {
+					// Performing accounting
+					this.dateFinished = new Date();
+					this.secondsTotal = this.getDateFinished().getTime() - this.getDateFinished().getTime();
+					kid.addPlaySiteSummary(new PlaySiteSummary(this.getId(), this.getSecondsTotal(), this.getDescription()));
+					addKidToHistory(kid);
+					
+					kidIter.remove();
+				}
+			}
+		} else {
+			throw new PlaySiteIsEmptyException();
+		}
+	}
+	
+	public void addWaitingKidToPlaySite(Kid kid) throws WaitingIsNotAcceptedException {
+		if (kid.isWaitingAccepted()) {
+			synchronized(waitingKids) {
+				waitingKids.add(kid);
+			}
+		} else {
+			throw new WaitingIsNotAcceptedException();
+		}
+	}
+	
+	public void removeWaitingKidFromPlaySite(Kid kid) throws WaitingListIsEmptyException {
+		if (!waitingKids.isEmpty()) {
+			for (Iterator<Kid> kidIter = waitingKids.listIterator(); kidIter.hasNext();) {
+				if (kidIter.next().getId().equals(kid.getId()) ) {
+					kidIter.remove();
+				}
+			}
+		} else {
+			throw new WaitingListIsEmptyException();
+		}
+		
+	}
+	
+	public void addKidToHistory(Kid kid) {
+		lastKids.add(kid);
+		if (lastKids.size() > lastKidsUsed) {
+			lastKids.remove(0);
+		} 
+	}
+	
 	
 	@Override
 	public String toString() {

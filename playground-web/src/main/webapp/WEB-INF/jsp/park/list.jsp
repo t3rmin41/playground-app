@@ -9,19 +9,22 @@
 <title>Amusement park management</title>
 </head>
 <body>
-	<table border="1">
-	<thead>
-		<th>ID</th>
-		<th>${amusementPark.id}</th>
-	</thead>
-	<tbody>
-		<c:forEach items="${amusementPark.getPlaySites()}" var="playSite">
-			<tr>
-				<td colspan="2">${playSite.toString()}</td>
-			</tr>
-		</c:forEach>
-	</tbody>
-	</table>
+	<c:forEach items="${amusementParkList}" var="park">
+		<table border="1">
+		<thead>
+			<th>ID</th>
+			<th>${park.id}</th>
+		</thead>
+		<tbody>
+			<c:forEach items="${park.getPlaySites()}" var="playSite">
+				<tr>
+					<td colspan="2">${playSite.toString()}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+		</table>
+		<br />
+	</c:forEach>
 	<br />
 	<a href="${contextPath}">Go to home page</a>
 </body>
