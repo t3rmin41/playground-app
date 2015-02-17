@@ -173,10 +173,12 @@ public abstract class PlaySite extends DomainEntity {
 	}
 	
 	public void addKidToHistory(Kid kid) {
-		lastKids.add(kid);
-		if (lastKids.size() > lastKidsUsed) {
-			lastKids.remove(0);
-		} 
+		synchronized (lastKids) {
+			lastKids.add(kid);
+			if (lastKids.size() > lastKidsUsed) {
+				lastKids.remove(0);
+			} 
+		}
 	}
 	
 	
