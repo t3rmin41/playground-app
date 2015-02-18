@@ -9,6 +9,8 @@
 <title>Amusement park management</title>
 </head>
 <body>
+	<div style="float:left">
+	<h3>List of parks</h3>
 	<c:forEach items="${amusementParkList}" var="park">
 		<table border="1">
 		<thead>
@@ -25,6 +27,32 @@
 		</table>
 		<br />
 	</c:forEach>
+	</div>
+	<div style="float:left">
+		<h3>List of kids</h3>
+			<table border="1">
+			<thead>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Ticket number</th>
+				<th>Playsites visited</th>
+			</thead>
+			<tbody>
+			<c:forEach items="${kids}" var="kid">
+				<tr>
+					<td>${kid.name}</td>
+					<td>${kid.age}</td>
+					<td>${kid.ticketNumber}</td>
+					<td>
+					<c:forEach items="${kid.getPlaySiteList()}" var="playSiteSummary">
+						${playSiteSummary.toString()} <br />
+					</c:forEach>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+		</table>
+	</div>
 	<br />
 	<a href="${contextPath}">Go to home page</a>
 </body>

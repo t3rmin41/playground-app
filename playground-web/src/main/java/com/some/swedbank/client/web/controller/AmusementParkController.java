@@ -19,7 +19,8 @@ public class AmusementParkController {
 	@Autowired
 	private AmusementParkService amusementParkService;
 	
-	@Autowired KidService kidService;
+	@Autowired 
+	private KidService kidService;
 	
 	@RequestMapping("/list")
 	public String viewListOfAmusementParks(Model model) {

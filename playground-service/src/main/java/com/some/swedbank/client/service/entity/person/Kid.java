@@ -15,6 +15,10 @@ public class Kid extends DomainEntity {
 	
 	private List<PlaySiteSummary> playSiteList;
 	
+	public Kid(Long id) {
+		super(id);
+	}
+	
 	public Kid(Long id, String name, Long age, String ticketNumber, Boolean waitingAccepted) {
 		super(id);
 		this.name = name;
@@ -46,6 +50,10 @@ public class Kid extends DomainEntity {
 	}
 
 	public Boolean isWaitingAccepted() {
+		return waitingAccepted;
+	}
+	
+	public Boolean getWaitingAccepted() {
 		return waitingAccepted;
 	}
 

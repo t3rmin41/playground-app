@@ -32,6 +32,33 @@
 	</tbody>
 	</table>
 	<br />
+	<h3>Add new kid</h3>
+	<form:form  modelAttribute="newKid" method="POST" action="${contextPath}/kids/addNewKid">
+	<table>
+		<tr>
+			<td>Name</td>
+			<td><form:input path="name" /></td>
+		</tr>
+		<tr>
+			<td>Age</td>
+			<td><form:input path="age" /></td>
+		</tr>
+		<tr>
+			<td>Ticket number</td>
+			<td><form:input path="ticketNumber" /></td>
+		</tr>
+		<tr>
+			<td>Accepts waiting</td>
+			<td><form:input path="waitingAccepted" /></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="submit" name="action" value="Add" />
+			</td>
+		</tr>
+	</table>
+	</form:form>
+	<br />
 	<a href="${contextPath}">Go to home page</a>
 </body>
 </html>
