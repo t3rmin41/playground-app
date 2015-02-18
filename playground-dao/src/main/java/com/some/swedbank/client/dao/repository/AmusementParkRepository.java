@@ -27,7 +27,7 @@ public class AmusementParkRepository {
 		switch (parkIdString) {
 			case "1": playsiteIds = new ArrayList<Long>(Arrays.asList(1L,1L,4L,2L));
 					  break;
-			case "2": playsiteIds = new ArrayList<Long>(Arrays.asList(3L,1L,2L,4L));
+			case "2": playsiteIds = new ArrayList<Long>(Arrays.asList(3L,1L,2L));
 					  break;
 			case "3": playsiteIds = new ArrayList<Long>(Arrays.asList(2L,1L,2L,4L));
 					  break;

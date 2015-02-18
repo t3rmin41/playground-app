@@ -1,4 +1,4 @@
-package com.some.swedbank.client.service.test.service;
+package com.some.swedbank.client.service.test.mapper;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -9,20 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.some.swedbank.client.service.entity.person.Kid;
-import com.some.swedbank.client.service.mapper.KidDomainMapperWithDao;
+import com.some.swedbank.client.dao.entity.AmusementParkDao;
+import com.some.swedbank.client.dao.repository.AmusementParkRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:service-test-context.xml")
-public class KidServiceTest {
+public class AmusementParkMapperTest {
 
 	@Autowired
-	private KidDomainMapperWithDao kidMapper;
+	private AmusementParkRepository amusementParkRepository;
 	
 	@Test
-	public void kidServiceOK() {
-		Kid kid = kidMapper.getKidById(1L);
-		assertNotNull(kid);
-		assertEquals(1, (long) kid.getId());
+	public void amusementParkMapperOK() {
+		AmusementParkDao dao = amusementParkRepository.loadAmusementPark(2L);
+		assertNotNull(dao);
+		assertEquals(3, (long) dao.getPlaySitesDao().size());
 	}
 }

@@ -16,10 +16,6 @@ public class KidDaoTest {
 	@Test
 	public void KidDaoOK() {
 		KidDao kidDao = new KidDao(0L, "TEST",  0L, "TEST", Boolean.TRUE);
-		if (kidDao.isWaitingAccepted().equals(true)) { // autoboxing check
-			assertTrue(true);
-		} else {
-			assertTrue(false);
-		}
+		assertTrue(kidDao.isWaitingAccepted().equals(true)); // autoboxing check
 	}
 }

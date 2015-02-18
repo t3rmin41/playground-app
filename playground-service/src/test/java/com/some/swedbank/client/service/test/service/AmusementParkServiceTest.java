@@ -9,20 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.some.swedbank.client.service.entity.person.Kid;
-import com.some.swedbank.client.service.mapper.KidDomainMapperWithDao;
+import com.some.swedbank.client.service.entity.park.AmusementPark;
+import com.some.swedbank.client.service.mapper.AmusementParkDomainMapperWithDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:service-test-context.xml")
-public class KidServiceTest {
+public class AmusementParkServiceTest {
 
 	@Autowired
-	private KidDomainMapperWithDao kidMapper;
+    private AmusementParkDomainMapperWithDao amusementParkMapper;
 	
 	@Test
-	public void kidServiceOK() {
-		Kid kid = kidMapper.getKidById(1L);
-		assertNotNull(kid);
-		assertEquals(1, (long) kid.getId());
+	public void amusementParkServiceOK() {
+		AmusementPark park = amusementParkMapper.getAmusementPark(3L);
+		assertNotNull(park);
+		assertEquals(4, (long) park.getPlaySites().size());
 	}
 }

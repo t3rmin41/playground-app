@@ -20,11 +20,8 @@ public class KidDomainMapperTest {
 	
 	@Test
 	public void mappingKidOK() {
-		KidDao kidDao = kidRepository.getKidById(1L);
-		if (kidDao != null && kidDao.getId().equals(1L)) {
-			assertTrue(true);
-		} else {
-			assertTrue(false);
-		}
+		KidDao kidDao = kidRepository.getKidById(2L);
+		assertNotNull(kidDao);
+		assertEquals(2, (long) kidDao.getId());
 	}
 }
