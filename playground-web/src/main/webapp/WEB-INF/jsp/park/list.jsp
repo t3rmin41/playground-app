@@ -9,7 +9,8 @@
 <title>Amusement park management</title>
 </head>
 <body>
-	<div style="float:left">
+	<div id="main" style="position: relative">
+	<div style="float:left; margin-right: 30px">
 	<h3>List of parks</h3>
 	<c:forEach items="${amusementParkList}" var="park">
 		<table border="1">
@@ -28,7 +29,7 @@
 		<br />
 	</c:forEach>
 	</div>
-	<div style="float:left">
+	<div style="float:left; margin-right: 30px">
 		<h3>List of kids</h3>
 			<table border="1">
 			<thead>
@@ -54,6 +55,9 @@
 		</table>
 	</div>
 	<br />
-	<a href="${contextPath}">Go to home page</a>
+	<div style="position: absolute; bottom: 0">	
+		<a href="${contextPath}">Go to home page</a>
+	</div>
+	</div>
 </body>
 </html>

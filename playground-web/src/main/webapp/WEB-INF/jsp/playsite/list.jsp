@@ -9,6 +9,9 @@
 <title>List of available playsites</title>
 </head>
 <body>
+	<a href="${contextPath}">Go to home page</a>
+	<br />
+	<br />
 	<table border="1">
 	<thead>
 		<th>Description</th>
@@ -24,6 +27,5 @@
 	</tbody>
 	</table>
 	<br />
-	<a href="${contextPath}">Go to home page</a>
 </body>
 </html>

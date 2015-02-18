@@ -35,7 +35,6 @@ public class KidsController {
 	private String initialKidsListForReview(Model model) {
 		List<Kid> kids = kidService.getAllKids();
 		model.addAttribute("kids", kids);
-		model.addAttribute("newKid", new Kid( (long) kids.size()));
 		return "kids/list";
 	}
 	

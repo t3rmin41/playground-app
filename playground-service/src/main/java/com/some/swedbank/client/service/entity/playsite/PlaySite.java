@@ -20,7 +20,6 @@ public abstract class PlaySite extends DomainEntity {
 	
 	private List<Kid> kidsCurrentlyUsing;
 	private List<Kid> waitingKids;
-	private List<Kid> lastKids;
 	private List<KidSummary> usageHistory;
 
 	private Date dateStarted;
@@ -31,7 +30,6 @@ public abstract class PlaySite extends DomainEntity {
 		super(id);
 		kidsCurrentlyUsing = new ArrayList<Kid>();
 		waitingKids = new ArrayList<Kid>();
-		lastKids = new ArrayList<Kid>();
 		usageHistory = new ArrayList<KidSummary>();
 	}
 	
@@ -86,13 +84,6 @@ public abstract class PlaySite extends DomainEntity {
 		this.waitingKids = waitingKids;
 	}
 	
-	public List<Kid> getLastKids() {
-		return lastKids;
-	}
-
-	public void setLastKids(List<Kid> lastKids) {
-		this.lastKids = lastKids;
-	}
 	public List<KidSummary> getUsageHistory() {
 		return usageHistory;
 	}
@@ -125,25 +116,23 @@ public abstract class PlaySite extends DomainEntity {
 		this.secondsTotal = secondsTotal;
 	}
 
-	public boolean addKidToPlaySite(Kid kid) {
+	public synchronized boolean addKidToPlaySite(Kid kid) {
 		boolean addedSuccessfully = false;
-		synchronized (kidsCurrentlyUsing) {
-			if (kidsCurrentlyUsing.size() < maximumKids) {
-				kidsCurrentlyUsing.add(kid);
-				this.dateStarted = new Date();
-				addedSuccessfully = true;
-			} else {
-				try {
-					addWaitingKidToPlaySite(kid);
-				} catch (WaitingIsNotAcceptedException e) {
-					e.printStackTrace();
-				} 
+		if (kidsCurrentlyUsing.size() < maximumKids) {
+			kidsCurrentlyUsing.add(kid);
+			this.dateStarted = new Date();
+			addedSuccessfully = true;
+		} else {
+			try {
+				addWaitingKidToPlaySite(kid);
+			} catch (WaitingIsNotAcceptedException e) {
+				e.printStackTrace();
 			}
 		}
 		return addedSuccessfully;
 	}
 	
-	public void removeKidFromPlaySite(Kid kid) throws PlaySiteIsEmptyException {
+	public synchronized void removeKidFromPlaySite(Kid kid) throws PlaySiteIsEmptyException {
 		if (!kidsCurrentlyUsing.isEmpty()) {
 			for (Iterator<Kid> kidIter = kidsCurrentlyUsing.listIterator(); kidIter.hasNext();) {
 				if (kidIter.next().getId().equals(kid.getId()) ) {
@@ -151,7 +140,6 @@ public abstract class PlaySite extends DomainEntity {
 					this.dateFinished = new Date();
 					this.secondsTotal = this.getDateFinished().getTime() - this.getDateFinished().getTime();
 					kid.addPlaySiteSummary(new PlaySiteSummary(this.getId(), this.getSecondsTotal(), this.getDescription()));
-					addKidToHistory(kid);
 					addHistoryUsage(kid, secondsTotal);
 					
 					kidIter.remove();
@@ -162,17 +150,15 @@ public abstract class PlaySite extends DomainEntity {
 		}
 	}
 	
-	public void addWaitingKidToPlaySite(Kid kid) throws WaitingIsNotAcceptedException {
+	public synchronized void addWaitingKidToPlaySite(Kid kid) throws WaitingIsNotAcceptedException {
 		if (kid.isWaitingAccepted()) {
-			synchronized (waitingKids) {
-				waitingKids.add(kid);
-			}
+			waitingKids.add(kid);
 		} else {
 			throw new WaitingIsNotAcceptedException();
 		}
 	}
 	
-	public void removeWaitingKidFromPlaySite(Kid kid) throws WaitingListIsEmptyException {
+	public synchronized void removeWaitingKidFromPlaySite(Kid kid) throws WaitingListIsEmptyException {
 		if (!waitingKids.isEmpty()) {
 			for (Iterator<Kid> kidIter = waitingKids.listIterator(); kidIter.hasNext();) {
 				if (kidIter.next().getId().equals(kid.getId()) ) {
@@ -185,27 +171,16 @@ public abstract class PlaySite extends DomainEntity {
 		
 	}
 	
-	public void addKidToHistory(Kid kid) {
-		synchronized (lastKids) {
-			lastKids.add(kid);
-			if (lastKids.size() > lastKidsUsed) {
-				lastKids.remove(0);
-			} 
-		}
-	}
-	
-	public void addHistoryUsage(Kid kid, Long secondsTotal) {
+	public synchronized void addHistoryUsage(Kid kid, Long secondsTotal) {
 		KidSummary kidSummary = new KidSummary();
 		kidSummary.setKidId(kid.getId());
 		kidSummary.setName(kid.getName());
 		kidSummary.setAge(kid.getAge());
 		kidSummary.setSeconds(secondsTotal);
 		
-		synchronized (usageHistory) {
-			usageHistory.add(kidSummary);
-			if (usageHistory.size() > lastKidsUsed) {
-				usageHistory.remove(0);
-			}
+		usageHistory.add(kidSummary);
+		if (usageHistory.size() > lastKidsUsed) {
+			usageHistory.remove(0);
 		}
 	}
 	
