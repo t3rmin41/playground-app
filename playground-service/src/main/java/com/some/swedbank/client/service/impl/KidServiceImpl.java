@@ -20,4 +20,9 @@ public class KidServiceImpl implements KidService {
 		return kidMapper.getAllKids();
 	}
 
+	@Override
+	public Kid getKidById(Long id) {
+		return kidMapper.getKidById(id);
+	}
+
 }

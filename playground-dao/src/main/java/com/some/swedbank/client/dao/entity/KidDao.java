@@ -13,7 +13,7 @@ public class KidDao extends DaoEntity {
 		this.name = name;
 		this.age = age;
 		this.ticketNumber = ticketNumber;
-		this.setWaitingAccepted(waitingAccepted);
+		this.waitingAccepted = waitingAccepted;
 	}
 	
 	public String getName() {

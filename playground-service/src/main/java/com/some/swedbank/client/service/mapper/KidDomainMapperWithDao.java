@@ -20,7 +20,7 @@ public class KidDomainMapperWithDao implements DomainMapperWithDao {
 	
 	@Override
 	public DomainEntity createDomainFromDao(DaoEntity dao) {
-		return null;
+		return getKidById(dao.getId());
 	}
 	
 	public List<Kid> getAllKids() {
@@ -37,6 +37,11 @@ public class KidDomainMapperWithDao implements DomainMapperWithDao {
 							  );
 		}
 		return domainKidList;
+	}
+	
+	public Kid getKidById(Long id) {
+		KidDao kidDao = kidRepository.getKidById(id);
+		return kidDao != null ? new Kid(kidDao.getId(), kidDao.getName(), kidDao.getAge(), kidDao.getTicketNumber(), kidDao.isWaitingAccepted()) :  null;
 	}
 
 }

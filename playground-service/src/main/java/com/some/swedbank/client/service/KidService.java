@@ -8,4 +8,6 @@ public interface KidService {
 	
 	List<Kid> getAllKids();
 	
+	Kid getKidById(Long id);
+	
 }
