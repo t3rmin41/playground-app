@@ -1,6 +1,5 @@
 package com.some.swedbank.client.service.test.mapper;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;

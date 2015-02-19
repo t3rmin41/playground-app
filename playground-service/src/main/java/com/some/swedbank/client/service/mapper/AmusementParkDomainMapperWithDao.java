@@ -39,10 +39,19 @@ public class AmusementParkDomainMapperWithDao implements DomainMapperWithDao {
 	public AmusementPark getAmusementPark(Long id) {
 		AmusementParkDao amusementParkDao = amusementParkRepository.loadAmusementPark(id);
 		List<PlaySiteDao> playSiteDaoList = amusementParkRepository.loadAmusementParkPlaySites(id);
+		/*
+		AmusementPark park = new AmusementPark(
+				 amusementParkDao.getId(),
+				 playSiteMapper.getPlaySiteList(playSiteDaoList)
+				);
+		park.makeSnapshot();
+		return park;
+		/**/
 		return new AmusementPark(
 								 amusementParkDao.getId(),
 								 playSiteMapper.getPlaySiteList(playSiteDaoList)
 								);
+		/**/
 	}
 	
 	public Long addNewPlaySite(Long id, PlaySite playSite) {

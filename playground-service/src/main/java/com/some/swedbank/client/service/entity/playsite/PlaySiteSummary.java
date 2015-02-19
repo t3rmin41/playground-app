@@ -11,9 +11,13 @@ public class PlaySiteSummary extends DomainEntity {
 	private Double currentUtilization;
 	private Date dateCreated;
 	
-	public PlaySiteSummary(Long id, Long secondsTotal) {
+	public PlaySiteSummary(Long id) {
 		super(id);
 		this.setDateCreated(new Date());
+	}
+	
+	public PlaySiteSummary(Long id, Long secondsTotal) {
+		this(id);
 		this.secondsTotal = secondsTotal;
 	}
 	
@@ -24,6 +28,12 @@ public class PlaySiteSummary extends DomainEntity {
 	
 	public PlaySiteSummary(Long id, Long secondsTotal, String description, Double util) {
 		this(id, secondsTotal, description);
+		this.currentUtilization = util;
+	}
+	
+	public PlaySiteSummary(Long id, String description, Double util) {
+		this(id);
+		this.description = description;
 		this.currentUtilization = util;
 	}
 
@@ -61,6 +71,10 @@ public class PlaySiteSummary extends DomainEntity {
 
 	@Override
 	public String toString() {
-		return "At "+ this.description + " total " + this.secondsTotal + " seconds";
+		return "On "+ this.description + " total " + this.secondsTotal + " seconds";
+	}
+	
+	public String getUtilizationAtTime() {
+		return "On "+ this.description + " utilization = " + this.currentUtilization + " at " + this.dateCreated;
 	}
 }

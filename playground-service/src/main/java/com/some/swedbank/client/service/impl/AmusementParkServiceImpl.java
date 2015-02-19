@@ -48,8 +48,7 @@ public class AmusementParkServiceImpl implements AmusementParkService {
 	}
 
 	@Override
-	public List<AmusementParkSummary> getAllSnapshots(Long id) {
-		return null;
+	public List<AmusementParkSummary> getAllSnapshots(AmusementPark park) {
+		return park.getSnapshots();
 	}
-
 }

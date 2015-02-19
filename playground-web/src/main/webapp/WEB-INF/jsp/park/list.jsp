@@ -10,6 +10,10 @@
 </head>
 <body>
 	<div id="main" style="position: relative">
+	<br />
+	<div style="position: absolute; bottom: 0">	
+		<a href="${contextPath}">Go to home page</a>
+	</div>
 	<div style="float:left; margin-right: 30px">
 	<h3>List of parks</h3>
 	<c:forEach items="${amusementParkList}" var="park">
@@ -23,6 +27,13 @@
 				<tr>
 					<td colspan="2">${playSite.toString()}</td>
 				</tr>
+			</c:forEach>
+			<c:forEach items="${park.getSnapshots()}" var="snapshot">
+					<c:forEach items="${snapshot.getPlaySiteSummaries()}" var="playSiteSummary">
+					<tr>
+						<td colspan="2">${playSiteSummary.getUtilizationAtTime()}</td>
+					</tr>
+					</c:forEach>
 			</c:forEach>
 		</tbody>
 		</table>
@@ -53,10 +64,6 @@
 			</c:forEach>
 		</tbody>
 		</table>
-	</div>
-	<br />
-	<div style="position: absolute; bottom: 0">	
-		<a href="${contextPath}">Go to home page</a>
 	</div>
 	</div>
 </body>

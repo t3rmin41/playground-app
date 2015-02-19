@@ -17,5 +17,5 @@ public interface AmusementParkService {
 	
 	List<AmusementPark> getAllAmusementParks();
 	
-	List<AmusementParkSummary> getAllSnapshots(Long id);
+	List<AmusementParkSummary> getAllSnapshots(AmusementPark park);
 }
