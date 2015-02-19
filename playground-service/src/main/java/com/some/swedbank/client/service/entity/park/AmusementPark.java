@@ -11,6 +11,7 @@ import com.some.swedbank.client.service.entity.playsite.PlaySite;
 public class AmusementPark extends DomainEntity {
 
 	private List<PlaySite> playSites;
+	private List<AmusementParkSummary> snapshots;
 	private Long visitorsTotal = 0L;
 	
 	public AmusementPark(Long id) {
@@ -31,6 +32,22 @@ public class AmusementPark extends DomainEntity {
 		this.playSites = playSites;
 	}
 	
+	public List<AmusementParkSummary> getSnapshots() {
+		return snapshots;
+	}
+
+	public void setSnapshots(List<AmusementParkSummary> snapshots) {
+		this.snapshots = snapshots;
+	}
+
+	public Long getVisitorsTotal() {
+		return visitorsTotal;
+	}
+
+	public void setVisitorsTotal(Long visitorsTotal) {
+		this.visitorsTotal = visitorsTotal;
+	}
+
 	public void addNewPlaySite(PlaySite playSite) {
 		this.playSites.add(playSite);
 	}
@@ -41,14 +58,6 @@ public class AmusementPark extends DomainEntity {
 				playSiteIter.remove();
 			}
 		}
-	}
-
-	public Long getVisitorsTotal() {
-		return visitorsTotal;
-	}
-
-	public void setVisitorsTotal(Long visitorsTotal) {
-		this.visitorsTotal = visitorsTotal;
 	}
 	 
 	public void addKidToPlaySite(PlaySite playSite, Kid kid) {

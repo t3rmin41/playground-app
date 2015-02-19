@@ -8,6 +8,7 @@
   	<module>playground-web</module>
   	<module>playground-service</module>
   	<module>playground-dao</module>
+  	<module>playground-jobs</module>
   </modules>
   <properties>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

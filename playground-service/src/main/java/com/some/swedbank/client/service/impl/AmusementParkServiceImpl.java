@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.some.swedbank.client.service.AmusementParkService;
 import com.some.swedbank.client.service.entity.park.AmusementPark;
+import com.some.swedbank.client.service.entity.park.AmusementParkSummary;
 import com.some.swedbank.client.service.entity.playsite.PlaySite;
 import com.some.swedbank.client.service.mapper.AmusementParkDomainMapperWithDao;
 import com.some.swedbank.client.service.mapper.PlaySiteDomainMapperWithDao;
@@ -44,6 +45,11 @@ public class AmusementParkServiceImpl implements AmusementParkService {
 	@Override
 	public List<AmusementPark> getAllAmusementParks() {
 		return amusementParkMapper.getAllAmusementParks();
+	}
+
+	@Override
+	public List<AmusementParkSummary> getAllSnapshots(Long id) {
+		return null;
 	}
 
 }

@@ -139,7 +139,12 @@ public abstract class PlaySite extends DomainEntity {
 					// Perform accounting
 					this.dateFinished = new Date();
 					this.secondsTotal = this.getDateFinished().getTime() - this.getDateFinished().getTime();
-					kid.addPlaySiteSummary(new PlaySiteSummary(this.getId(), this.getSecondsTotal(), this.getDescription()));
+					kid.addPlaySiteSummary(new PlaySiteSummary(
+																this.getId(),
+																this.getSecondsTotal(), 
+																this.getDescription(),
+																this.calculateUtilization()
+															  ));
 					addHistoryUsage(kid, secondsTotal);
 					
 					kidIter.remove();
