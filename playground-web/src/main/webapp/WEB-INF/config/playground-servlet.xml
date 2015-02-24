@@ -22,7 +22,7 @@
 
 	<context:annotation-config />
 	
-	<context:component-scan base-package="com.some.swedbank.client" />	
+	<context:component-scan base-package="com.some.client" />	
 	
 	<!-- Maps a logical view name to a physical resource -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
