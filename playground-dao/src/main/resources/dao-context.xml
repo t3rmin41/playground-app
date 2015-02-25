@@ -10,7 +10,9 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
-	<context:component-scan base-package="com.some.client" />	
+	<context:annotation-config />
+	
+	<context:component-scan base-package="com.some.client.dao" />	
 
 	<bean id="jdbcPropertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
@@ -36,10 +38,11 @@
         <property name="persistenceUnitName" value="entityManager"/>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
+	
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

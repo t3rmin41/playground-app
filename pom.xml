@@ -134,6 +134,12 @@
 		<artifactId>jackson-mapper-asl</artifactId>
 		<version>1.9.10</version>
 	</dependency>
+	<!-- MySQL -->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.6</version>
+	</dependency>
 	<!-- JUnit -->
 	<dependency>
     	<groupId>junit</groupId>

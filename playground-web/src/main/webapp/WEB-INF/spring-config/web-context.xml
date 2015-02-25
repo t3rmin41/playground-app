@@ -2,27 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jee="http://www.springframework.org/schema/jee" 
-	xmlns:lang="http://www.springframework.org/schema/lang"
 	xmlns:p="http://www.springframework.org/schema/p" 
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:integ="http://www.springframework.org/schema/integration"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
-        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config />
 	
-	<context:component-scan base-package="com.some.client" />	
+	<context:component-scan base-package="com.some.client.web,com.some.client.service" />	
+
+	<mvc:annotation-driven />
+	
+	<!-- JS and CSS resources -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 	
 	<!-- Maps a logical view name to a physical resource -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -35,10 +28,5 @@
          <!-- setting maximum upload size -->
         <property name="maxUploadSize" value="1900000" />
     </bean>
-	
-	<mvc:annotation-driven />
-	
-	<!-- JS and CSS resources -->
-    <mvc:resources mapping="/resources/**" location="/resources/" />
 	        
 </beans>

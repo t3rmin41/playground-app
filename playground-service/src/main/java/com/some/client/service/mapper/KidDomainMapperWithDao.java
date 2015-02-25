@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.some.client.dao.entity.DaoEntity;
 import com.some.client.dao.entity.KidDao;
@@ -23,6 +24,7 @@ public class KidDomainMapperWithDao implements DomainMapperWithDao {
 		return getKidById(dao.getId());
 	}
 	
+	//@Transactional
 	public List<Kid> getAllKids() {
 		List<KidDao> daoKidList = kidRepository.getAllKids();
 		List<Kid> domainKidList = new ArrayList<Kid>();

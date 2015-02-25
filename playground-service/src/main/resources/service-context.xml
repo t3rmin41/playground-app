@@ -10,6 +10,6 @@
 
 	<context:annotation-config />
 	
-	<context:component-scan base-package="com.some.client" />	
+	<context:component-scan base-package="com.some.client.service,com.some.client.dao" />	
 	
 </beans>
