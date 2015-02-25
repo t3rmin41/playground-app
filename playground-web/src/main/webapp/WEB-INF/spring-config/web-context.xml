@@ -29,4 +29,8 @@
         <property name="maxUploadSize" value="1900000" />
     </bean>
 	        
+	<import resource="classpath:service-context.xml"/>
+	<import resource="classpath:dao-context.xml"/>
+	<!-- <import resource="classpath:jobs-context.xml"/> -->
+	        
 </beans>
