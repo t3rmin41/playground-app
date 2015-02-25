@@ -20,7 +20,6 @@ public class AmusementParkSnapshotService {
 	
 	public void demoJob() {
 		logger.info("Scheduled job executed with logger output. Current time is : "+ new Date());
-		System.out.println("Scheduled job executed. Current time is : "+ new Date());
 	}
 	
 	public void makeAmusementParkSnapshots() {
