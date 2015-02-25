@@ -7,8 +7,7 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<!-- <param-value>/WEB-INF/config/voip-web-servlet.xml, /WEB-INF/conf/voip-web-security.xml</param-value> -->
-			<param-value>/WEB-INF/config/playground-servlet.xml</param-value>
+			<param-value>/WEB-INF/spring-config/web-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

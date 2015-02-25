@@ -15,7 +15,7 @@
 
     <task:scheduled-tasks>
         <task:scheduled ref="snapshotMaker" method="demoJob" cron="*/5 * * * * *" />
-        <task:scheduled ref="snapshotMaker" method="makeAmusementParkSnapshots" cron="*/15 * * * * *" />
+        <!-- <task:scheduled ref="snapshotMaker" method="makeAmusementParkSnapshots" cron="*/15 * * * * *" /> -->
     </task:scheduled-tasks>
  
 </beans>

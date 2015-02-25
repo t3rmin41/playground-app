@@ -20,11 +20,9 @@ public class AmusementParkSnapshotService {
 	
 	public void demoJob() {
 		logger.info("Scheduled job executed with logger output. Current time is : "+ new Date());
-		//System.out.println("Scheduled job executed. Current time is : "+ new Date());
+		System.out.println("Scheduled job executed. Current time is : "+ new Date());
 	}
 	
-	
-	//@Scheduled(cron = "*/10 * * * * ?")
 	public void makeAmusementParkSnapshots() {
 		List<AmusementPark> parks = amusementParkService.getAllAmusementParks();
 		for (AmusementPark park : parks) {
